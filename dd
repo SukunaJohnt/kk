@@ -1,4 +1,5 @@
-  repeat wait() until game:IsLoaded()
+--a
+ repeat wait() until game:IsLoaded()
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Ready"):FireServer()
         local replayName =  "t.txt"
         local startTime = tick()
@@ -10,11 +11,8 @@
      end
      
         local function place(info)
-            local Folder  = game.workspace.Unit
-        local con = Folder.ChildAdded:Connect(function(NewChild)
-        if NewChild:IsA("Model") and NewChild.Name == info.character then
-    print("placed") 
-        else
+            if not game:GetService("Workspace").Unit[game.Players.LocalPlayer.Name]:FindFirstChild(info.character) or 
+            game:GetService("Workspace").Unit[game.Players.LocalPlayer.Name][info.character].HumanoidRootPart.CFrame ~= stcf(info.position) then
             repeat wait()
             local args = {
                 [1] = info.character,
@@ -23,13 +21,10 @@
                 [4] = info.unitid
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CreateUnits"):FireServer(unpack(args))
-        until NewChild.Name == info.character
-        end
-
-        con:Disconnect()
-        end)
+        until  game:GetService("Workspace").Unit[game.Players.LocalPlayer.Name]:FindFirstChild(info.character) or  game:GetService("Workspace").Unit[game.Players.LocalPlayer.Name][info.character].HumanoidRootPart.CFrame == stcf(info.position)
             end
-
+        end 
+        
         local function upgrade(info)
             local args = {
                 [1] = workspace:WaitForChild("Unit"):WaitForChild(game.Players.LocalPlayer.Name):WaitForChild(info.character)
