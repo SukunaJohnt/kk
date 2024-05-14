@@ -1,4 +1,4 @@
---b
+--c
 --a
 repeat wait() until game:IsLoaded()
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Ready"):FireServer()
@@ -23,6 +23,7 @@ local function place(info)
     }
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CreateUnits"):FireServer(unpack(args))
 until  
+game:GetService("Workspace").Unit[game.Players.LocalPlayer.Name]:FindFirstChild(info.character) and 
 game:GetService("Workspace").Unit[game.Players.LocalPlayer.Name][info.character].HumanoidRootPart.CFrame == stcf(info.position)
     end
 end 
